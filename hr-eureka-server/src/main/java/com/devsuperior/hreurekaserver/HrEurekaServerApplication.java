@@ -12,4 +12,6 @@ public class HrEurekaServerApplication {
 		SpringApplication.run(HrEurekaServerApplication.class, args);
 	}
 
+	// test
+
 }
