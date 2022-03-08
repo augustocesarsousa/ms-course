@@ -1,100 +1,54 @@
-# Criando e testando containers Docker
+# Human Resources
 
-## Comandos Docker
+Este projeto foi desenvolvido no curso Full Stack Spring React da <a href="https://devsuperior.com.br/" target="_blank">DevSuperior</a> no módulo de Microservices, ele consiste no desenvolvimento de um sistema de cálculo do salário de trabalhadores com base na arquitetura de Microservices utilizando as tecnologias mais atuais no mercado, essa arquitetura torna o sistema altamente escalável, abaixo segue uma descrição resumida das tecnologias:
 
-#### Criar uma rede Docker
+## **Tecnologias**
 
-```
-docker network create <nome-da-rede>
-```
+- Linguagem de programação: Java 11
+- Framework: Spring Boot 2.3.x
+- Banco de dados de teste H2
+- Banco de dados de produção Postgresql 
+- Ferramenta para testes de requisição Postman
+- Docker para criação de containers e teste de produção
 
-#### Baixar imagem do Dockerhub
+## **Descrição dos micreservices**
 
-```
-docker pull <nome-da-imagem:tag>
-```
+- Microservices
+  - HR Api Gateway Zuul: microservice de roteamento, responsável pelo recebimento das requisições;
+  - HR Config Server: microservice de configuração, responsável por acessar o repositório de configurações no Github;
+  - HR Eureka Server: micorservice servidor, responsável por alocar os microservices clientes e fazer o balanceamento das requisições; 
+  - HR Oauth: microservice de autenticação e autorização, responsável por liberar e validar os tokens dos clientes;
+  - HR User: microservice da entidade usuário, responsável por acessar os usuários no base de dados;
+  - HR Worker: microservice da entidade trabalhadores, responsável por acessar os trabalhadores na base de dados;
+  - HR Payroll: microserice da folha de pagamento, responsável por fazer o cálculo do salário dos trabalhadores;
 
-#### Ver imagens
+## **Implementações do framework**
 
-```
-docker images
-```
+- Actuator;
+- Eureka;
+- Feign Client;
+- Rest Template;
+- Ribbon Load Balancing;
+- Zuul API Gateway;
 
-#### Rodar um container de uma imagem
+## Imagens o projeto
 
-```
-docker run -p <porta-externa>:<porta-interna> --name <nome-do-container> --network <nome-da-rede> <nome-da-imagem:tag>
-```
+adicionar...
 
-#### Listar containers
+## Executando o projeto
 
-```
-docker ps
-docker ps -a
-```
+Baixe o código fonte e o extraia em seu diretório de preferência, exemplo (C:\Workspaces).
 
-#### Acompanhar logs do container em execução
+Abra as pastas dos microservices com a sua IDE Java de preferência, recomendação (Spring Tools ou VS Code), aguarde o Maven baixar as dependências e depois execute os microservices seguindo os passos abaixo:
 
-```
-docker logs -f <container-id>
-```
+ 1. HR Config Server: para puxar as configurações do Github
+ 2. HR Eureka Server: para alocar os clientes
+ 3. O restanto dos micreservices podem ser iniciados na ordem de sua preferência
+ 4. Aguarde de 3 a 5 minutos para que os clientes estabilizem no servidor e após isso pode iniciar os testes
 
-## Criar rede docker para sistema hr
+### Usuários para teste
 
-```
-docker network create hr-net
-```
+Usuário 1: nina@gmail.com, senha: 123456
 
-## Postgresql
+Usuário 2: leia@gmail.com, senha: 123456
 
-```
-docker pull postgres:12-alpine
-docker run postgres:12-alpine -p 5432:5432 --name hr-worker-pg12 --network hr-net -e POSTGRES_PASSWORD=1234567 -e POSTGRES_DB=db_hr_worker
-```
-
-## hr-config-server
-
-```
-FROM openjdk:11
-VOLUME /tmp
-EXPOSE 8888
-ADD ./target/hr-config-server-0.0.1-SNAPSHOT.jar hr-config-server.jar
-ENTRYPOINT ["java","-jar","/hr-config-server.jar"]
-```
-
-```
-mvnw clean package
-docker build -t hr-config-server:v1 .
-docker run hr-config-server:v1 -p 8888:8888 --name hr-config-server --network hr-net -e GITHUB_USER=acenelio -e GITHUB_PASS=
-```
-
-## hr-eureka-server
-
-```
-FROM openjdk:11
-VOLUME /tmp
-EXPOSE 8761
-ADD ./target/hr-eureka-server-0.0.1-SNAPSHOT.jar hr-eureka-server.jar
-ENTRYPOINT ["java","-jar","/hr-eureka-server.jar"]
-```
-
-```
-mvnw clean package
-docker build -t hr-eureka-server:v1 .
-docker run hr-eureka-server:v1 -p 8761:8761 --name hr-eureka-server --network hr-net
-```
-
-## hr-worker
-
-```
-FROM openjdk:11
-VOLUME /tmp
-ADD ./target/hr-worker-0.0.1-SNAPSHOT.jar hr-worker.jar
-ENTRYPOINT ["java","-jar","/hr-worker.jar"]
-```
-
-```
-mvnw clean package -DskipTests
-docker build -t hr-worker:v1 .
-docker run hr-worker:v1 -P --network hr-net
-```
