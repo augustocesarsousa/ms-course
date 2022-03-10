@@ -1,6 +1,6 @@
 # Human Resources
 
-Este projeto foi desenvolvido no curso Full Stack Spring React da <a href="https://devsuperior.com.br/" target="_blank">DevSuperior</a> no módulo de Microservices, ele consiste no desenvolvimento de um sistema de cálculo do salário de trabalhadores, utilizando a arquitetura de Microservices, essa arquitetura torna o sistema altamente escalável, abaixo segue uma descrição resumida das tecnologias implementadas:
+Este projeto foi desenvolvido no curso Full Stack Spring React da <a href="https://devsuperior.com.br/" target="_blank">DevSuperior</a> no módulo de Microservices, ele consiste no desenvolvimento de um sistema de cálculo do salário de trabalhadores, utilizando a arquitetura de Microservices, essa arquitetura torna o sistema altamente escalável de fácil manutenção e disponibilidade, abaixo segue uma descrição resumida das tecnologias implementadas:
 
 ## **Tecnologias**
 
@@ -13,22 +13,22 @@ Este projeto foi desenvolvido no curso Full Stack Spring React da <a href="https
 
 ## **Descrição dos microservices**
 
-- HR Api Gateway Zuul: microservice de roteamento, responsável pelo recebimento das requisições
-- HR Config Server: microservice de configuração, responsável por acessar o repositório de configurações no Github
-- HR Eureka Server: micorservice servidor, responsável por alocar os microservices clientes e fazer o balanceamento das requisições
-- HR Oauth: microservice de autenticação e autorização, responsável por liberar e validar os tokens dos clientes
-- HR User: microservice da entidade usuário, responsável por acessar os usuários no base de dados
-- HR Worker: microservice da entidade trabalhadores, responsável por acessar os trabalhadores na base de dados
-- HR Payroll: microservice da folha de pagamento, responsável por fazer o cálculo do salário dos trabalhadores
+- Hr Api Gateway Zuul: microservice de roteamento, responsável pelo recebimento das requisições
+- Hr Config Server: microservice de configuração, responsável por acessar o repositório de configurações no Github
+- Hr Eureka Server: micorservice servidor, responsável por alocar os microservices clientes e fazer o balanceamento das requisições
+- Hr Oauth: microservice de autenticação e autorização, responsável por liberar e validar os tokens dos clientes
+- Hr User: microservice da entidade usuário, responsável por acessar os usuários no base de dados
+- Hr Worker: microservice da entidade trabalhadores, responsável por acessar os trabalhadores na base de dados
+- Hr Payroll: microservice da folha de pagamento, responsável por fazer o cálculo do salário dos trabalhadores
 
 ## **Implementações do framework**
 
-- Actuator;
-- Eureka;
-- Feign Client;
-- Rest Template;
-- Ribbon Load Balancing;
-- Zuul API Gateway;
+- Actuator
+- Eureka
+- Feign Client
+- Rest Template
+- Ribbon Load Balancing
+- Zuul API Gateway
 
 ## Imagens o projeto
 
